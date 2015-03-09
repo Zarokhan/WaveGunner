@@ -45,7 +45,7 @@ public class GameState extends AbstractState {
 		
 		btnMenu = new Button(res.menu, res.menu);
 		btnMenu.setPosition(new Vector2(0, MyGame.HEIGHT - btnMenu.getHeight()));
-		btnStore = new Button(res.btnStore, res.btnStorePressed);
+		btnStore = new Button(res.btnStore, res.btnStore);
 		btnStore.setPosition(new Vector2(MyGame.WIDTH - btnStore.getWidth(), -20));
 	}
 

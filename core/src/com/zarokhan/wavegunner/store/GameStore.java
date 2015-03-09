@@ -35,7 +35,7 @@ public class GameStore {
 		storeHUD = new GameObject(res.storeHUD);
 		storeHUD.setPos(new Vector2((MyGame.WIDTH - storeHUD.getWidth())/2, (MyGame.HEIGHT - storeHUD.getHeight())/2));
 		btnClose = new Button(res.close, res.close);
-		btnClose.setPosition(new Vector2(storeHUD.getPos().x + storeHUD.getWidth() - btnClose.getWidth(), storeHUD.getPos().y + storeHUD.getHeight() - btnClose.getHeight()));
+		btnClose.setPosition(new Vector2(storeHUD.getPos().x + storeHUD.getWidth() -  btnClose.getWidth(), storeHUD.getPos().y + storeHUD.getHeight() - btnClose.getHeight()));
 		
 		// Turret for store visuals
 		turret = new GameObject(res.turret1);
@@ -96,13 +96,13 @@ public class GameStore {
 			
 			// btn damage
 			if(damage.update(delta) && wallet.getBalance() >= dmgCost){
-				pturret.setDamage((int)(pturret.getDamage() * 1.7f));
+				pturret.setDamage((int)(pturret.getDamage() + 5));
 				wallet.purchase(dmgCost);
 				dmgCost += 40;
 			}
 			// btn rate of fire
 			if(rapidfire.update(delta) && wallet.getBalance() >= rpmCost){
-				pturret.setRateFire(pturret.getRateFire() * 0.95f);
+				pturret.setRateFire(pturret.getRateFire() * 0.90f);
 				wallet.purchase(rpmCost);
 				rpmCost += 40;
 			}
@@ -110,7 +110,7 @@ public class GameStore {
 			if(healthcap.update(delta) && wallet.getBalance() >= hpCost){
 				base.setMaxHealth(base.getMaxHealth() * 1.2f);
 				wallet.purchase(hpCost);
-				hpCost += 40;
+				hpCost += 30;
 			}
 			// btn repair
 			if(repair.update(delta) && wallet.getBalance() >= repairCost){
@@ -120,7 +120,7 @@ public class GameStore {
 					else
 						base.setHealth(base.getHealth() + 100);
 					
-					wallet.purchase(100);
+					wallet.purchase(repairCost);
 				}
 			}
 		}
@@ -131,7 +131,7 @@ public class GameStore {
 			// renders store background/ui
 			storeHUD.render(batch);
 			// renders store headline
-			batch.draw(res.btnStorePressed, storeHUD.getPos().x + (storeHUD.getWidth() - res.btnStorePressed.getWidth())/2, storeHUD.getPos().y + storeHUD.getHeight() - res.btnStorePressed.getHeight() - 20);
+			//batch.draw(res.btnStorePressed, storeHUD.getPos().x + (storeHUD.getWidth() - res.btnStorePressed.getWidth())/2, storeHUD.getPos().y + storeHUD.getHeight() - res.btnStorePressed.getHeight() - 20);
 			// renders exit icon
 			btnClose.render(batch);
 			// renders store visuals

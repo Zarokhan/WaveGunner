@@ -16,7 +16,7 @@ public class ResourceManager {
 	public Texture damage, rapid, mag;
 	
 	// Texture buttons
-	public Texture btnStore, btnStorePressed, close, healthcap, repair, ammo;
+	public Texture btnStore, close, healthcap, repair, ammo;
 	
 	public Texture[] muzzle;
 	public Sound shot, basshot, music, music2;
@@ -30,7 +30,7 @@ public class ResourceManager {
 		jeep = new Texture("jeep.png");
 		bullet = new Texture(Gdx.files.internal("images/bullet2.png"));
 		zombie = new Texture("zombie2.png");
-		darkbg = new Texture("darkbg.png");
+		darkbg = new Texture(Gdx.files.internal("images/darkbg.png"));
 		healthbar = new Texture("healthbar.png");
 		healthbarbg = new Texture("healthbarbg.png");
 		healthbarforeground = new Texture("foreground.png");
@@ -42,8 +42,9 @@ public class ResourceManager {
 		dollar = new Texture("images/dollar.png");
 		logo = new Texture(Gdx.files.internal("images/logo.png"));
 		menu = new Texture(Gdx.files.internal("images/buttons/menu.png"));
-		btnStore = new Texture(Gdx.files.internal("images/buttons/Store.png"));
-		btnStorePressed = new Texture(Gdx.files.internal("images/buttons/Store_Pressed.png"));
+		
+		btnStore = new Texture(Gdx.files.internal("images/buttons/store.png"));
+		
 		storeHUD = new Texture(Gdx.files.internal("images/StoreHud.png"));
 		close = new Texture(Gdx.files.internal("images/buttons/close.png"));
 		HUD = new Texture(Gdx.files.internal("images/tophud.png"));
