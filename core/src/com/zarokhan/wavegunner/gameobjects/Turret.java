@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
 import com.zarokhan.wavegunner.utilities.GameObject;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
+import com.zarokhan.wavegunner.utilities.SoundManager;
 
 public class Turret extends GameObject {
 	
@@ -20,6 +21,7 @@ public class Turret extends GameObject {
 	private Random rnd;
 	private OrthographicCamera camera;
 	private ResourceManager res;
+	private SoundManager sound;
 	
 	// Bullet properties
 	private List<Bullet> bullet;
@@ -47,10 +49,11 @@ public class Turret extends GameObject {
 	private static final float MAX_SHELL_ADD_SPEED = 300;
 	private int shellDir;
 	
-	public Turret(ResourceManager res, OrthographicCamera camera){
+	public Turret(ResourceManager res, SoundManager sound, OrthographicCamera camera){
 		super(res.turret1);
 		this.camera = camera;
 		this.res = res;
+		this.sound = sound;
 		rnd = new Random();
 		// Bullets.
 		bullet = new ArrayList<Bullet>();
@@ -104,8 +107,7 @@ public class Turret extends GameObject {
 			this.rotation += recoil;
 			
 			// Bullet & Muzzle
-			res.shot.play();
-			res.basshot.play(0.25f);
+			sound.playShot();
 			timer = rateFire;
 			muzzleTimer = 0;
 			bullet.add(new Bullet(res, getBarrelTip(), this.rotation));

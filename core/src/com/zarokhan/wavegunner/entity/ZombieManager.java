@@ -12,10 +12,12 @@ import com.zarokhan.wavegunner.states.State;
 import com.zarokhan.wavegunner.states.StateManager;
 import com.zarokhan.wavegunner.utilities.Button;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
+import com.zarokhan.wavegunner.utilities.SoundManager;
 
 public class ZombieManager {
 	
 	private ResourceManager res;
+	private SoundManager sound;
 	private StateManager states;
 	private Random rnd;
 	private List<Zombie> zombie;
@@ -40,9 +42,10 @@ public class ZombieManager {
 	// Buttons
 	private Button btnNextWave;
 	
-	public ZombieManager(StateManager states, ResourceManager res, MilitaryBase base, int startZombies, float expansionRate) {
+	public ZombieManager(StateManager states, ResourceManager res, SoundManager sound, MilitaryBase base, int startZombies, float expansionRate) {
 		this.states = states;
 		this.res = res;
+		this.sound = sound;
 		this.base = base;
 		rnd = new Random();
 		zombie = new ArrayList<Zombie>();
@@ -50,7 +53,7 @@ public class ZombieManager {
 		this.zombiesEachWave = startZombies;
 		this.expansionRate = expansionRate;
 		spawnTime = 0.7f;
-		btnNextWave = new Button(res.nextwave, res.activeNextWave);
+		btnNextWave = new Button(res.nextwave, res.nextwave);
 		btnNextWave.setPosition(new Vector2((MyGame.WIDTH - btnNextWave.getWidth())/2, btnNextWave.getHeight() * 1.5f));
 	}
 	
@@ -99,7 +102,7 @@ public class ZombieManager {
 		
 		// Adds zombie
 		
-		zombie.add(new Zombie(res, totalZombiesSpawned, new Vector2(p.x, p.y), base.getPoint(), 1f + rnd.nextFloat() * 0.3f, base.getRadius(), speed));
+		zombie.add(new Zombie(res, sound, totalZombiesSpawned, new Vector2(p.x, p.y), base.getPoint(), 1f + rnd.nextFloat() * 0.3f, base.getRadius(), speed));
 	}
 	
 	public void menuMode(){
@@ -108,8 +111,6 @@ public class ZombieManager {
 	}
 	
 	public void startNextWave(){
-		states.stopAllMusic();
-		res.music.loop(0.1f);
 		clearAllZombies();
 		waveActive = true;
 		currentWave++;
@@ -117,6 +118,8 @@ public class ZombieManager {
 	
 	public void update(float delta) {
 		if(!waveActive && btnNextWave.update(delta)){
+			sound.playSelect();
+			sound.playMusic(SoundManager.MusicType.night);
 			startNextWave();
 			states.setState(State.NextWaveCutScene);
 		}
@@ -144,8 +147,7 @@ public class ZombieManager {
 					allDead = true;
 			}
 			if(!allDead){
-				states.stopAllMusic();
-				res.music2.loop(0.1f);
+				sound.playMusic(SoundManager.MusicType.day);
 				waveActive = false;
 				zombiesSpawned = 0;
 				zombiesEachWave = (int)(zombiesEachWave * expansionRate);

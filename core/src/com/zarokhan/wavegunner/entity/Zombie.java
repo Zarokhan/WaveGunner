@@ -5,12 +5,15 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.utilities.GameObject;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
+import com.zarokhan.wavegunner.utilities.SoundManager;
 
 public class Zombie extends GameObject {
 	
 	public enum Phase{
 		TargetPhase, AttackPhase, DeathPhase
 	}
+	
+	private SoundManager sound;
 	
 	private int id;
 	private int health;
@@ -23,8 +26,9 @@ public class Zombie extends GameObject {
 	
 	private float timer;
 	
-	public Zombie(ResourceManager res, int id, Vector2 pos, Vector2 point, float scale, float baseRadius, float speed) {
+	public Zombie(ResourceManager res, SoundManager sound, int id, Vector2 pos, Vector2 point, float scale, float baseRadius, float speed) {
 		super(res.zombie);
+		this.sound = sound;
 		this.point = point;
 		this.phase = Phase.TargetPhase;
 		this.baseRadius = baseRadius;
@@ -95,6 +99,7 @@ public class Zombie extends GameObject {
 				source.x += 128;
 				if(source.x == 128 * 6){
 					source.x = 0;
+					sound.playHit();
 					base.takeDamage(damage);
 				}
 			}

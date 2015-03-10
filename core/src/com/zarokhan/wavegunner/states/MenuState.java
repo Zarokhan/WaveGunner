@@ -8,16 +8,20 @@ import com.zarokhan.wavegunner.entity.MilitaryBase;
 import com.zarokhan.wavegunner.entity.ZombieManager;
 import com.zarokhan.wavegunner.utilities.Button;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
+import com.zarokhan.wavegunner.utilities.SoundManager;
 
 public class MenuState extends AbstractState {
+	
+	private SoundManager sound;
 	
 	private Background bg;
 	private Button btnPlay;
 	private MilitaryBase base;
 	private ZombieManager zombies;
 	
-	public MenuState(StateManager states, ResourceManager res) {
+	public MenuState(StateManager states, SoundManager sound, ResourceManager res) {
 		super(states, res);
+		this.sound = sound;
 		// Creat bg object
 		bg = new Background(res);
 		
@@ -25,12 +29,12 @@ public class MenuState extends AbstractState {
 		base.setPoint(new Vector2(MyGame.WIDTH/2 - 30, MyGame.HEIGHT - 200));
 		base.setRadius(450);
 		
-		zombies = new ZombieManager(states, res, base, 100, 0);
+		zombies = new ZombieManager(states, res, sound, base, 100, 0);
 		zombies.menuMode();
 		zombies.startNextWave();
 		
 		// Creates buttons
-		btnPlay = new Button(res.play, res.playPressed);
+		btnPlay = new Button(res.play, res.play);
 		btnPlay.setPosition(new Vector2((MyGame.WIDTH - btnPlay.getWidth())/2, 300));
 	}
 	
@@ -43,6 +47,7 @@ public class MenuState extends AbstractState {
 		zombies.update(delta);
 		
 		if(btnPlay.update(delta)){
+			sound.playSelect();
 			states.setState(State.Game);
 		}
 	}

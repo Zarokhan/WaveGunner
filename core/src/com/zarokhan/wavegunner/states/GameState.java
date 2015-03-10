@@ -14,10 +14,12 @@ import com.zarokhan.wavegunner.utilities.Button;
 import com.zarokhan.wavegunner.utilities.GameObject;
 import com.zarokhan.wavegunner.utilities.HUD;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
+import com.zarokhan.wavegunner.utilities.SoundManager;
 import com.zarokhan.wavegunner.utilities.Wallet;
 
 public class GameState extends AbstractState {
 	
+	private SoundManager sound;
 	private OrthographicCamera camera;
 	private Background bg;
 	private MilitaryBase base;
@@ -30,22 +32,23 @@ public class GameState extends AbstractState {
 	
 	private Button btnMenu, btnStore;
 	
-	public GameState(StateManager states, ResourceManager res, OrthographicCamera camera) {
+	public GameState(StateManager states, ResourceManager res, SoundManager sound, OrthographicCamera camera) {
 		super(states, res);
 		this.camera = camera;
+		this.sound = sound;
 		bg = new Background(res);
 		base = new MilitaryBase(res);
-		turret = new Turret(res, camera);
+		turret = new Turret(res, sound, camera);
 		base.setPoint(new Vector2(MyGame.WIDTH/2 - 60, turret.getCenterPosition().y));
-		zombies = new ZombieManager(states, res, base, 10, 1.2f);
+		zombies = new ZombieManager(states, res, sound, base, 10, 1.2f);
 		wallet = new Wallet();
 		
 		hud = new HUD(res, base, wallet);
-		store = new GameStore(res, wallet, turret, base);
+		store = new GameStore(res, sound, wallet, turret, base);
 		
 		btnMenu = new Button(res.menu, res.menu);
 		btnMenu.setPosition(new Vector2(0, MyGame.HEIGHT - btnMenu.getHeight()));
-		btnStore = new Button(res.btnStore, res.btnStore);
+		btnStore = new Button(res.shop, res.shop);
 		btnStore.setPosition(new Vector2(MyGame.WIDTH - btnStore.getWidth(), -20));
 	}
 
@@ -55,6 +58,7 @@ public class GameState extends AbstractState {
 		if(!zombies.isWaveActive()){
 			// Store btn
 			if(btnStore.update(delta)){
+				sound.playSelect();
 				store.activateStore();
 			}
 			// Update store
@@ -63,6 +67,7 @@ public class GameState extends AbstractState {
 		
 		// Buttons
 		if(btnMenu.update(delta)){
+			sound.playSelect();
 			states.setState(State.Menu);
 		}
 		
@@ -118,9 +123,12 @@ public class GameState extends AbstractState {
 		hud.render(batch);
 		// Draws buttons
 		btnMenu.render(batch);
-		btnStore.render(batch);
-		if(!zombies.isWaveActive())
+		
+		// Renders stuff when wave is not active
+		if(!zombies.isWaveActive()){
+			btnStore.render(batch);
 			store.render(batch);
+		}
 	}
 	
 	public int getZombiesKilled(){

@@ -8,10 +8,12 @@ import com.zarokhan.wavegunner.gameobjects.Turret;
 import com.zarokhan.wavegunner.utilities.Button;
 import com.zarokhan.wavegunner.utilities.GameObject;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
+import com.zarokhan.wavegunner.utilities.SoundManager;
 import com.zarokhan.wavegunner.utilities.Wallet;
 
 public class GameStore {
 	
+	private SoundManager sound;
 	private ResourceManager res;
 	private Wallet wallet;
 	private Turret pturret;
@@ -19,15 +21,16 @@ public class GameStore {
 	
 	private GameObject turret, barrels, storeHUD;
 	// Upgrade buttons
-	private Button damage, rapidfire, magsize, healthcap, repair, ammo, btnClose;
+	private Button damage, rapidfire, healthcap, repair, btnClose;
 	
 	// Prices
 	private int dmgCost, rpmCost, hpCost, repairCost;
 	// If the store is active
 	private boolean active;
 	
-	public GameStore(ResourceManager res, Wallet wallet, Turret playerTurret, MilitaryBase base){
+	public GameStore(ResourceManager res, SoundManager sound, Wallet wallet, Turret playerTurret, MilitaryBase base){
 		this.res = res;
+		this.sound = sound;
 		this.wallet = wallet;
 		this.pturret = playerTurret;
 		this.base = base;
@@ -54,18 +57,12 @@ public class GameStore {
 		// rapid fire button
 		rapidfire = new Button(res.rapid, res.rapid);
 		rapidfire.setPosition(new Vector2(storeHUD.getPos().x + 50, storeHUD.getPos().y + storeHUD.getHeight() - 300 - rapidfire.getHeight() - 130));
-		// magazine size button
-		magsize = new Button(res.mag, res.mag);
-		magsize.setPosition(new Vector2(storeHUD.getPos().x + 50, storeHUD.getPos().y + storeHUD.getHeight() - 300 - rapidfire.getHeight() - magsize.getHeight() - 140));
 		// health cap button
 		healthcap = new Button(res.healthcap, res.healthcap);
 		healthcap.setPosition(new Vector2(storeHUD.getPos().x + storeHUD.getWidth()/2, storeHUD.getPos().y + storeHUD.getHeight() - 400));
 		// repair button
 		repair = new Button(res.repair, res.repair);
 		repair.setPosition(new Vector2(storeHUD.getPos().x + storeHUD.getWidth()/2, storeHUD.getPos().y + storeHUD.getHeight() - 400 - rapidfire.getHeight()));
-		// ammo button
-		ammo = new Button(res.ammo, res.ammo);
-		ammo.setPosition(new Vector2(storeHUD.getPos().x + storeHUD.getWidth()/2, storeHUD.getPos().y + storeHUD.getHeight() - 400 - rapidfire.getHeight() - magsize.getHeight() - 40));
 		
 		// Pricing
 		dmgCost = 100;
@@ -91,29 +88,34 @@ public class GameStore {
 		if(active){
 			// btn Close store
 			if(btnClose.update(delta)){
+				sound.playSelect();
 				active = false;
 			}
 			
 			// btn damage
 			if(damage.update(delta) && wallet.getBalance() >= dmgCost){
+				sound.playUpgrade();
 				pturret.setDamage((int)(pturret.getDamage() + 5));
 				wallet.purchase(dmgCost);
 				dmgCost += 40;
 			}
 			// btn rate of fire
 			if(rapidfire.update(delta) && wallet.getBalance() >= rpmCost){
+				sound.playUpgrade();
 				pturret.setRateFire(pturret.getRateFire() * 0.90f);
 				wallet.purchase(rpmCost);
 				rpmCost += 40;
 			}
 			// btn hp
 			if(healthcap.update(delta) && wallet.getBalance() >= hpCost){
+				sound.playUpgrade();
 				base.setMaxHealth(base.getMaxHealth() * 1.2f);
 				wallet.purchase(hpCost);
 				hpCost += 30;
 			}
 			// btn repair
 			if(repair.update(delta) && wallet.getBalance() >= repairCost){
+				sound.playUpgrade();
 				if(base.getHealth() != base.getMaxHealth()){
 					if(base.getHealth() + 100 > base.getMaxHealth())
 						base.setHealth(base.getMaxHealth());
@@ -131,7 +133,7 @@ public class GameStore {
 			// renders store background/ui
 			storeHUD.render(batch);
 			// renders store headline
-			//batch.draw(res.btnStorePressed, storeHUD.getPos().x + (storeHUD.getWidth() - res.btnStorePressed.getWidth())/2, storeHUD.getPos().y + storeHUD.getHeight() - res.btnStorePressed.getHeight() - 20);
+			batch.draw(res.shopLogo, storeHUD.getPos().x + (storeHUD.getWidth() - res.shopLogo.getWidth())/2, storeHUD.getPos().y + storeHUD.getHeight() - res.shopLogo.getHeight() - 20);
 			// renders exit icon
 			btnClose.render(batch);
 			// renders store visuals
@@ -143,8 +145,6 @@ public class GameStore {
 			// renders rapid fire btn
 			rapidfire.render(batch);
 			res.smallFont.draw(batch, "RPM: " + (int)(60/pturret.getRateFire()) + " Cost: " + rpmCost, rapidfire.getPos().x + 20, rapidfire.getPos().y + 20);
-			// renders mag size btn
-			magsize.render(batch);
 			//res.smallFont.draw(batch, "Current magazine size: " + , x, y)
 			
 			// renders base health text
@@ -153,8 +153,6 @@ public class GameStore {
 			// renders base repair
 			repair.render(batch);
 			res.smallFont.draw(batch, "+ 100 hp Cost: " + repairCost, repair.getPos().x + 20, repair.getPos().y);
-			// renders ammo text
-			ammo.render(batch);
 		}
 	}
 }

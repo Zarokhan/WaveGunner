@@ -3,12 +3,14 @@ package com.zarokhan.wavegunner.states;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
+import com.zarokhan.wavegunner.utilities.SoundManager;
 
 public class StateManager {
 	
 	private OrthographicCamera camera;
 	private State state;
 	private ResourceManager res;
+	private SoundManager sound;
 	
 	private GameState game;
 	private MenuState menu;
@@ -17,36 +19,31 @@ public class StateManager {
 	public StateManager(OrthographicCamera camera){
 		this.camera = camera;
 		res = new ResourceManager();
+		sound = new SoundManager(res);
 		
-		game = new GameState(this, res, camera);
-		menu = new MenuState(this, res);
+		game = new GameState(this, res, sound, camera);
+		menu = new MenuState(this, sound, res);
 		nextWave = new NewWaveState(this, res);
+		
+		sound.playMusic(SoundManager.MusicType.night);
 		
 		setState(State.Menu);
 	}
 	
 	public void setState(State state){
 		this.state = state;
-		stopAllMusic();
 		switch(state){
 		case Game:
-			//res.music2.loop(0.1f);
 			break;
 		case Menu:
 			menu.clearZombies();
-			//res.music.loop(0.1f);
 			break;
 		case NextWaveCutScene:
-			nextWave.setTimer(5);
+			nextWave.setTimer(3);
 			nextWave.setZombiesKilled(game.getZombiesKilled());
 			nextWave.setCurrentWave(game.getCurrentWave());
 			break;
 		}
-	}
-	
-	public void stopAllMusic(){
-		res.music.stop();
-		res.music2.stop();
 	}
 	
 	public void update(float delta){
