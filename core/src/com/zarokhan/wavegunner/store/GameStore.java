@@ -3,7 +3,7 @@ package com.zarokhan.wavegunner.store;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
-import com.zarokhan.wavegunner.entity.MilitaryBase;
+import com.zarokhan.wavegunner.MilitaryBase.MilitaryBase;
 import com.zarokhan.wavegunner.gameobjects.Turret;
 import com.zarokhan.wavegunner.utilities.Button;
 import com.zarokhan.wavegunner.utilities.GameObject;

@@ -1,9 +1,9 @@
-package com.zarokhan.wavegunner.states;
+package com.zarokhan.wavegunner.States;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
-import com.zarokhan.wavegunner.entity.ZombieManager;
+import com.zarokhan.wavegunner.Zombies.ZombieManager;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
 
 public class NewWaveState extends AbstractState {

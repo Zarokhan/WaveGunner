@@ -1,4 +1,4 @@
-package com.zarokhan.wavegunner.entity;
+package com.zarokhan.wavegunner.Zombies;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,10 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
-import com.zarokhan.wavegunner.entity.Zombie.Phase;
-import com.zarokhan.wavegunner.states.State;
-import com.zarokhan.wavegunner.states.StateManager;
+import com.zarokhan.wavegunner.MilitaryBase.MilitaryBase;
+import com.zarokhan.wavegunner.States.State;
+import com.zarokhan.wavegunner.States.StateManager;
+import com.zarokhan.wavegunner.Zombies.Zombie.Phase;
 import com.zarokhan.wavegunner.utilities.Button;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
 import com.zarokhan.wavegunner.utilities.SoundManager;

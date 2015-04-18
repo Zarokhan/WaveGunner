@@ -3,7 +3,7 @@ package com.zarokhan.wavegunner.utilities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
-import com.zarokhan.wavegunner.entity.MilitaryBase;
+import com.zarokhan.wavegunner.MilitaryBase.MilitaryBase;
 
 public class HUD {
 	

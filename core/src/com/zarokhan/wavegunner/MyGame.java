@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.zarokhan.wavegunner.states.StateManager;
+import com.zarokhan.wavegunner.States.StateManager;
 
 public class MyGame extends ApplicationAdapter {
 	

@@ -1,11 +1,11 @@
-package com.zarokhan.wavegunner.states;
+package com.zarokhan.wavegunner.States;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
+import com.zarokhan.wavegunner.MilitaryBase.MilitaryBase;
+import com.zarokhan.wavegunner.Zombies.ZombieManager;
 import com.zarokhan.wavegunner.bg.Background;
-import com.zarokhan.wavegunner.entity.MilitaryBase;
-import com.zarokhan.wavegunner.entity.ZombieManager;
 import com.zarokhan.wavegunner.utilities.Button;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
 import com.zarokhan.wavegunner.utilities.SoundManager;

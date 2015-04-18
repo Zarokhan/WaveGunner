@@ -1,4 +1,4 @@
-package com.zarokhan.wavegunner.states;
+package com.zarokhan.wavegunner.States;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

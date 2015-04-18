@@ -7,7 +7,7 @@ public class SoundManager {
 	}
 	
 	private ResourceManager res;
-	private boolean muted;
+	private boolean muted = true;
 	
 	public SoundManager(ResourceManager res){
 		this.res = res;

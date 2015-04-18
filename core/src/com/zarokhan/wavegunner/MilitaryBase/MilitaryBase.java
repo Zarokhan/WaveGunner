@@ -1,6 +1,7 @@
-package com.zarokhan.wavegunner.entity;
+package com.zarokhan.wavegunner.MilitaryBase;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
 import com.zarokhan.wavegunner.utilities.GameObject;
@@ -11,6 +12,7 @@ public class MilitaryBase {
 	private float health, maxHealth;
 	private Vector2 point;
 	private float radius;
+	private float fullWidth;
 	
 	private GameObject healthbar;
 	private GameObject healthbarbg;
@@ -28,9 +30,11 @@ public class MilitaryBase {
 		
 		Vector2 p = new Vector2((MyGame.WIDTH - foreground.getWidth())/2, 10);
 		foreground.setPos(p);
-		healthbar.setPos(p);
+		healthbar.setPos(new Vector2(p.x, p.y));
 		healthbarbg.setPos(p);
 		healthbar.setOrigin(new Vector2(0, 0));
+		
+		fullWidth = healthbar.getWidth();
 	}
 	
 	public boolean update(float delta){
@@ -42,12 +46,12 @@ public class MilitaryBase {
 	
 	public void takeDamage(float damage){
 		health -= damage;
-		healthbar.setScaleX(health/maxHealth);
+		healthbar.setSource(new Rectangle(0, 0, fullWidth * health/maxHealth, healthbar.getHeight()));
 	}
 	
 	public void render(SpriteBatch batch){
 		healthbarbg.render(batch);
-		healthbar.render2(batch);
+		healthbar.render(batch);
 		foreground.render(batch);
 	}
 	

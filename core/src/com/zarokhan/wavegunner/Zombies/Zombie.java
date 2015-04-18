@@ -1,8 +1,9 @@
-package com.zarokhan.wavegunner.entity;
+package com.zarokhan.wavegunner.Zombies;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.zarokhan.wavegunner.MilitaryBase.MilitaryBase;
 import com.zarokhan.wavegunner.utilities.GameObject;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
 import com.zarokhan.wavegunner.utilities.SoundManager;
@@ -42,7 +43,7 @@ public class Zombie extends GameObject {
 		this.scale = scale;
 		this.hitbox = new Rectangle(pos.x, pos.y, 128, 128);
 		
-		damage = 10;
+		damage = 5;
 		health = 15;
 		
 		direction();

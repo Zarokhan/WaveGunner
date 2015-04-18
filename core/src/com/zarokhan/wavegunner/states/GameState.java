@@ -1,13 +1,13 @@
-package com.zarokhan.wavegunner.states;
+package com.zarokhan.wavegunner.States;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.zarokhan.wavegunner.MyGame;
+import com.zarokhan.wavegunner.MilitaryBase.MilitaryBase;
+import com.zarokhan.wavegunner.Zombies.ZombieManager;
+import com.zarokhan.wavegunner.Zombies.Zombie.Phase;
 import com.zarokhan.wavegunner.bg.Background;
-import com.zarokhan.wavegunner.entity.MilitaryBase;
-import com.zarokhan.wavegunner.entity.Zombie.Phase;
-import com.zarokhan.wavegunner.entity.ZombieManager;
 import com.zarokhan.wavegunner.gameobjects.Turret;
 import com.zarokhan.wavegunner.store.GameStore;
 import com.zarokhan.wavegunner.utilities.Button;

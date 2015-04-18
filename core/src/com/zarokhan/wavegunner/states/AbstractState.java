@@ -1,4 +1,4 @@
-package com.zarokhan.wavegunner.states;
+package com.zarokhan.wavegunner.States;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.zarokhan.wavegunner.utilities.ResourceManager;
